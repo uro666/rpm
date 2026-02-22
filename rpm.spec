@@ -92,7 +92,7 @@
 Summary:	The RPM package management system
 Name:		rpm
 Version:	6.0.1
-Release:	%{?snapver:0.%{snapver}.}2
+Release:	%{?snapver:0.%{snapver}.}3
 Group:		System/Configuration/Packaging
 Url:		https://www.rpm.org/
 Source0:	http://ftp.rpm.org/releases/%{srcdir}/%{name}-%{srcver}.tar.bz2
@@ -108,6 +108,7 @@ Source10:	https://src.fedoraproject.org/rpms/rpm/raw/master/f/rpmdb-rebuild.serv
 
 # Extra functionality
 Patch10:	rpmuncompress-support-for-car-files.patch
+Patch11:	rpmlua-add-posix.statvfs.patch
 
 #
 # Backports from upstream
