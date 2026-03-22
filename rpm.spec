@@ -5,7 +5,8 @@
 # and will fail before python-rpm (part of rpm...) is built with the
 # correct version of python. (This hits e.g. when updating python to
 # a new major version)
-%bcond_without bootstrap
+%bcond_with bootstrap
+%bcond_without openmp
 %if %{with bootstrap}
 %define _build_pkgcheck %{_bindir}/true
 %define _build_pkgcheck_set %{_bindir}/true
@@ -546,6 +547,9 @@ export CMAKE_BUILD_DIR=BUILD
 	-DRPM_CONFIGDIR=%{_prefix}/lib/rpm \
 %ifarch %{oldarches}
 	-DENABLE_BDB_RO:BOOL=ON \
+%endif
+%if ! %{with openmp}
+	-DENABLE_OPENMP:BOOL=OFF \
 %endif
 	-DWITH_SEQUOIA:BOOL=OFF \
 	-DWITH_LEGACY_OPENPGP:BOOL=ON \
