@@ -551,6 +551,12 @@ export CMAKE_BUILD_DIR=BUILD
 %if ! %{with openmp}
 	-DENABLE_OPENMP:BOOL=OFF \
 %endif
+%if ! %{with selinux}
+	-DWITH_SELINUX:BOOL=OFF \
+%endif
+%if ! %{with audit}
+	-DWITH_AUDIT:BOOL=OFF \
+%endif
 	-DWITH_SEQUOIA:BOOL=OFF \
 	-DWITH_LEGACY_OPENPGP:BOOL=ON \
 	-DWITH_OPENSSL:BOOL=ON \
@@ -748,6 +754,11 @@ cd -
 
 install -c -m 755 perl-rpm-packaging-*/scripts/perl.* %{buildroot}%{_usrlibrpm}/
 install -c -m 644 perl-rpm-packaging-*/fileattrs/*.attr %{buildroot}%{_usrlibrpm}/fileattrs/
+
+%if %{cross_compiling}
+# Fix double-sysroot
+mv %{buildroot}%{_prefix}/%{_target_platform}%{_datadir}/dbus-1 %{buildroot}%{_datadir}/
+%endif
 
 %find_lang %{name}
 
